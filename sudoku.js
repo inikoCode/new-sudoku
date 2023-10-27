@@ -34,7 +34,7 @@ function solve(arr, numFild) {
   const Field = arr[numFild];
   return Field;
 }
-// console.table(solve(read("puzzles.txt"), 0));
+// solve(read('puzzles.txt'),0)
 
 function isSolved() {
   /**
@@ -73,6 +73,16 @@ function posValues(arr, x, y) {
     if (arr[i][y] === "-") continue;
     elements.push(arr[i][y]);
   }
+
+  // const cube = []
+  // for (let i=-1; i < 2; i++) {
+  //   for (let j=-1; j < 2; j++) {
+  //     if (x+i < 0 || y+j < 0) continue
+  //     if (i===0 && j===0) continue
+  //     if (arr[x+i][y+j] !== '-') cube.push(arr[x+i][y+j])
+  //   }
+  // }
+
   const posVal = [];
   for (let i = 1; i < 10; i++) {
     if (elements.includes(`${i}`)) continue;
