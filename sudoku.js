@@ -31,11 +31,11 @@ function solve(arr, numFild) {
    */
 
   const Field = arr[numFild];
-  console.table(Field);
+  return Field;
 
 
 }
-solve(read('puzzles.txt'),0)
+// solve(read('puzzles.txt'),0)
 
 function isSolved() {
   /**
@@ -56,18 +56,31 @@ function searchEl(arr) {
   for (let i = 0; i < arr.length; i++){
     for (let j = 0; j < arr[i].length; j++) {
       if (arr[i][j] === '-') {
-
+        const values = posValues(arr[i],i,j)
+        arr[i][j] = values[0];
       }
     }
   }
+  return arr
 }
 
 function posValues(arr, x, y) {
   const elements = [];
-  for (let row of arr) {
-    for (let i = 0; i < row.length; i++) {
-      if (row[i] === '-') continue
-      elements.push(row[i])
-    }
+  for (let el of arr[x]) {
+    if ( el === '-' ) continue
+    elements.push(el)
   }
+  for (let i=0; i < arr.length; i++) {
+    if (arr[i][y] === '-') continue
+    elements.push(arr[i][y])
+  }
+  const posVal = [];
+  for (let i = 1; i < 10; i++) {
+    if (elements.includes(`${i}`)) continue
+    posVal.push(`${i}`)
+  }
+  return posVal
 }
+
+// console.log(posValues(solve(read('puzzles.txt'),0),3,4));
+console.table(searchEl(solve(read('puzzles.txt'),0)))
