@@ -59,7 +59,7 @@ function changeEl(arr) {
     for (let j = 0; j < arr[i].length; j++) {
       if (arr[i][j] === '-') {
         const values = posValues(arr,i,j)
-        
+        if (values.length > 1) continue
         arr[i][j] = values[0];
       }
     }
