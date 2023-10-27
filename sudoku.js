@@ -35,13 +35,15 @@ function solve(arr, numFild) {
 
 
 }
-// solve(read('puzzles.txt'),0)
+console.table(solve(read('puzzles.txt'),0))
 
-function isSolved() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Возвращает булевое значение — решено это игровое поле или нет.
-   */
+function isSolved(arr) {
+  for (let i = 0; i < arr.length; i++){
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i][j] === '-') changeEl(arr)
+    }
+  }
+  return arr
 }
 
 function prettyBoard() {
@@ -52,11 +54,12 @@ function prettyBoard() {
    */
 }
 
-function searchEl(arr) {
+function changeEl(arr) {
   for (let i = 0; i < arr.length; i++){
     for (let j = 0; j < arr[i].length; j++) {
       if (arr[i][j] === '-') {
-        const values = posValues(arr[i],i,j)
+        const values = posValues(arr,i,j)
+        if (values.length > 1) continue
         arr[i][j] = values[0];
       }
     }
@@ -74,13 +77,24 @@ function posValues(arr, x, y) {
     if (arr[i][y] === '-') continue
     elements.push(arr[i][y])
   }
+
+  // const cube = []
+  // for (let i=-1; i < 2; i++) {
+  //   for (let j=-1; j < 2; j++) {
+  //     if (x+i < 0 || y+j < 0) continue
+  //     if (i===0 && j===0) continue
+  //     if (arr[x+i][y+j] !== '-') cube.push(arr[x+i][y+j])
+  //   }  
+  // }  
+
   const posVal = [];
   for (let i = 1; i < 10; i++) {
     if (elements.includes(`${i}`)) continue
     posVal.push(`${i}`)
   }
+
   return posVal
 }
 
 // console.log(posValues(solve(read('puzzles.txt'),0),3,4));
-console.table(searchEl(solve(read('puzzles.txt'),0)))
+console.table(isSolved(solve(read('puzzles.txt'),0)))
