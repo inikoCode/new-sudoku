@@ -1,27 +1,28 @@
-const { log } = require('console');
-const fs = require('fs')
+const { log } = require("console");
+const fs = require("fs");
 
 function read(nameFile) {
-  const file = fs.readFileSync(`${__dirname}/${nameFile}`, 'utf-8');
-  const allFieldsStr = file.trim().split('\n')
+  const file = fs.readFileSync(`${__dirname}/${nameFile}`, "utf-8");
+  const allFieldsStr = file.trim().split("\n");
   const allRows = [];
   for (let el of allFieldsStr) {
     for (let i = 0; i < el.length; i += 9) {
-      allRows.push(el.slice(i, i+9))
+      allRows.push(el.slice(i, i + 9));
     }
   }
 
   const allFields = [];
   for (let i = 0; i < allRows.length; i += 9) {
-    allFields.push(allRows.slice(i, i+9))
+    allFields.push(allRows.slice(i, i + 9));
   }
 
   for (let i = 0; i < allFields.length; i++) {
     for (let j = 0; j < allFields[i].length; j++) {
-      allFields[i][j] = allFields[i][j].split('')
+      allFields[i][j] = allFields[i][j].split("");
     }
   }
-  return allFields
+
+  return allFields;
 }
 
 function solve(arr, numFild) {
@@ -32,10 +33,8 @@ function solve(arr, numFild) {
 
   const Field = arr[numFild];
   return Field;
-
-
 }
-// solve(read('puzzles.txt'),0)
+// console.table(solve(read("puzzles.txt"), 0));
 
 function isSolved() {
   /**
@@ -53,34 +52,34 @@ function prettyBoard() {
 }
 
 function searchEl(arr) {
-  for (let i = 0; i < arr.length; i++){
+  for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length; j++) {
-      if (arr[i][j] === '-') {
-        const values = posValues(arr[i],i,j)
+      if (arr[i][j] === "-") {
+        const values = posValues(arr[i], i, j);
         arr[i][j] = values[0];
       }
     }
   }
-  return arr
+  return arr;
 }
 
 function posValues(arr, x, y) {
   const elements = [];
-  for (let el of arr[x]) {
-    if ( el === '-' ) continue
-    elements.push(el)
+  for (let el of arr[i]) {
+    if (el === "-") continue;
+    elements.push(el);
   }
-  for (let i=0; i < arr.length; i++) {
-    if (arr[i][y] === '-') continue
-    elements.push(arr[i][y])
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i][y] === "-") continue;
+    elements.push(arr[i][y]);
   }
   const posVal = [];
   for (let i = 1; i < 10; i++) {
-    if (elements.includes(`${i}`)) continue
-    posVal.push(`${i}`)
+    if (elements.includes(`${i}`)) continue;
+    posVal.push(`${i}`);
   }
-  return posVal
+  return posVal;
 }
 
 // console.log(posValues(solve(read('puzzles.txt'),0),3,4));
-console.table(searchEl(solve(read('puzzles.txt'),0)))
+console.table(searchEl(solve(read("puzzles.txt"), 0)));
